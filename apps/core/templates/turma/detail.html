@@ -23,12 +23,12 @@
           </tr>
           <tr>
             <td>
-            <a class="btn btn-success" href="{% url 'core:add-aulas' pk=rows.id %}">Adicionar aula</a>
-            {%if rows.data_termino|date:"d/m/y" > now|date:"d/m/y" %}
-            <a class="btn btn-success" href="{% url 'core:add-situacao' pk=rows.id %}">Situacao</a>
-            {%endif%}
-
-              
+                <div class="btn-group">
+                <a class="btn btn-success" href="{% url 'core:add-aulas' pk=rows.id %}">Adicionar aula</a>
+                {%if rows.data_termino|date:"d/m/y" > now|date:"d/m/y" %}
+                <a class="btn btn-success" href="{% url 'core:add-situacao' pk=rows.id %}">Situacao</a>
+                {%endif%}
+                </div>
             </td>
           </tr>
         </tbody>
