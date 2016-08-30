@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+        {% block title %}Situação{% endblock %}<!-- <small>Page subtile </small> -->
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="x_panel">
+    <div class="x_content">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Curso</th>
+            <th>Aluno</th>
+            <th>Frequencia</th>
+            <th>Situação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <th scope="row">{{ rows.curso }}</th>
+            <th scope="row">{{ rows.aluno }}</th>
+            <th scope="row">{{ rows.frequencia }}</th>
+            {% if rows.situacao == '1' %}
+              <td>Apto</td>
+            {% else %}
+              <td>Inapto</td>
+            {% endif %}
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

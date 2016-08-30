@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "frequencia/edit.html"%}
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+        {% block title %}Detalhe do Curso{% endblock %}
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="x_panel">
+    <div class="x_content">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Curso: 
+              {{ rows.curso|capfirst }} - {{ rows.turma }}
+            </td>
+          </tr>
+          <tr>
+            <td>Instrutor: {{ rows.instrutor|capfirst }}</td>
+          </tr>
+          <tr>
+            <td>
+            <a class="btn btn-success" href="{% url 'core:add-aulas' pk=rows.id %}">Adicionar aula</a>
+            {%if rows.data_termino|date:"d/m/y" > now|date:"d/m/y" %}
+            <a class="btn btn-success" href="{% url 'core:add-situacao' pk=rows.id %}">Situacao</a>
+            {%endif%}
+
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="x_panel">
+    <div class="x_content">
+    <div class="well">
+      <form class="form-horizontal" id="demo-form2" method="post" action="">
+        {% csrf_token %}
+        {%for field in search%}
+        <div class="form-group col-md-2 col-sm-4 col-xs-12">
+        {{field}}
+        </div>
+        {%endfor%}
+        <div class="form-group col-md-2 col-sm-4 col-xs-12">
+          <button type="submit" class="btn btn-success">Filtrar aulas</button>
+        </div>
+      </form>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ formset.management_form }}
+      <div class="table-responsive">
+      <h5>{{alunos|length}} - Alunos</h5>
+      <table class="table table-striped" jambo_table bulk_action>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            {%for aula in aulas%}
+            <th><a href="">{{aula.data|date:"d/m/y"}}</a></th>
+            {%endfor%}
+          </tr>
+        </thead>
+        <tbody>
+          {%for alunos,formset in forms%}
+            <tr>
+              <th scope="row">{{alunos.aluno}}</th>
+              {%for form in formset%}
+                {%for field in form.visible_fields%}
+                  {% for hidden in form.hidden_fields %}
+                    <td>{{ hidden }}{{ field }}</td>
+                  {% endfor %}
+                {%endfor%}
+              {%endfor%}
+            </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      </div>
+      <button type="submit" class="btn btn-success">Enviar</button>
+    </form>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
+
+
+
+
+
+{% comment %}
+  <div class="row">
+  <div class="x_panel">
+    <div class="x_content responsive">
+      <h5>{{alunos|length}}-Alunos</h5>
+      <form method="post" action="">
+      <table class="table table-reflow">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              {% for aluno in alunos %}
+              <th>{{ aluno.aluno }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          {% csrf_token %}
+          {{ formset.management_form }}
+          <tbody>
+            {%for aula,formset in forms%}
+            <tr>
+              <th>{{aula.data|date:"d/m/y"}}</th>
+              {%for form in formset%}
+              {%for field in form.visible_fields%}
+              {% for hidden in form.hidden_fields %}
+              <td>
+                {# Include the hidden fields in the form #}
+                {{ hidden }}
+                {{ field }}
+              </td>
+              {% endfor %}
+              {%endfor%}
+              {%endfor%}
+            </tr>
+            {% empty %}
+            <tr>Sorry, no athletes in this list.</tr>
+            {%endfor%}
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-success">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endcomment %}
+{% comment %}
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {%for alunos,formset in forms%}
+      {{alunos.aluno}}
+      {%for form in formset%}
+        {%for field in form%}
+            {{field}}
+        {%endfor%}
+      {%endfor%}
+    {%endfor%}
+    <button type="submit" class="btn btn-success">Enviar</button>
+</form>
+{% endcomment %}
+
+
+<form method="post" action="">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {{forloop.counter0}}
+    <table>
+        {% for form in formset %}
+        {{ form }}
+        {% endfor %}
+    </table>
+<button type="submit" class="btn btn-success">Enviar</button>
+</form>

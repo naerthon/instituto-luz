@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+        {% block title %}Alunos{% endblock %}<!-- <small>Page subtile </small> -->
+    </h3>
+  </div>
+</div>
+<div class="row">
+	<div class="x_panel">
+		<div class="x_content">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Nascimento</th>
+						<th>Telefone</th>
+						<th>Whatsapp</th>
+						<th>Cidade</th>
+						<th>Estado</th>
+						<th>Bairro</th>
+						<th>Ações</th>
+
+					</tr>
+				</thead>
+				<tbody>
+				{% for field in rows %}
+					<tr>
+						<th scope="row">{{ field.nome|upper }}</th>
+						<td>{{ field.data_nascimento }}</td>
+						<td>{{ field.fone }}</td>
+						<td>{{ field.whatsapp }}</td>
+						<td>{{ field.cidade|upper }}</td>
+						<td>{{ field.estado|upper }}</td>
+						<td>{{ field.bairro|upper }}</td>
+						<td><a href="{% url 'core:editar-aluno' pk=field.id %}"><i class="glyphicon glyphicon-edit"></i></a></td>
+					</tr>
+				{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <h4>Text in a modal</h4>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{%endblock%}

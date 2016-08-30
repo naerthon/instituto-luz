@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block login %}
+
+        <div class="col-middle">
+        {% if user.is_authenticated %}
+        <h2>Já é</h2>
+        {% else %}
+            <div class="text-center text-center">
+            <h1 class="error-number">Instituto Luz</h1>
+                <div class="mid_center">
+                    <h3>{% block title %}Login{% endblock %}</h3>
+                    <form class="form-horizontal form-label-left" method="post">
+                        {% csrf_token %}
+
+                        {{ form.non_field_errors }}
+                        {% for field in form %}
+                        <div class="item form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12">
+                                {{ field.label_tag }}
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{ field }}
+                                {{ field.errors}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Entrar</button>
+                        </div>
+                    </form>
+
+                    <!--<p>Doesn't have an account? <a href="/register/" title="">Sign Up</a></p>
+                     Forgot your password? <a href="" title="">Nova senha</a> <br /> !-->
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+        {% block title %}Instrutores{% endblock %}<!-- <small>Page subtile </small> -->
+    </h3>
+  </div>
+</div>
+<div class="row">
+	<div class="x_panel">
+		<div class="x_content">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Nascimento</th>
+						<th>Telefone</th>
+						<th>Whatsapp</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for field in rows %}
+					<tr>
+						<th scope="row">{{ field.nome|upper }}</th>
+						<td>{{ field.data_nascimento }}</td>
+						<td>{{ field.fone }}</td>
+						<td>{{ field.whatsapp }}</td>
+						<td><a href="{% url 'core:editar-instrutor' pk=field.id %}"><i class="glyphicon glyphicon-edit"></i></a></td>
+					</tr>
+				{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  <div class="title_left">
+    <h3>
+        {% block title %}Status{% endblock %}<!-- <small>Page subtile </small> -->
+    </h3>
+  </div>
+</div>
+<div class="row">
+	<div class="x_panel">
+		<div class="x_content">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Aluno</th>
+						<th>Faltas</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for field in rows %}
+				<tr>
+					<td>{{field.aluno}}</td>
+					<td>{{field.frequencia}}</td>
+					<td>{{field.get_situacao_display}}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{%endblock%}
