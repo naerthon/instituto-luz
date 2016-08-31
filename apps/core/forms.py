@@ -13,12 +13,15 @@ class AlunoForm(forms.ModelForm):
             'required':'required',
             
         }),
-        'data_nascimento': forms.TextInput(attrs={
-            'placeholder':'Data de Nascimento',
-            'class':'date-picker form-control col-md-7 col-xs-12',
-            'id':'birthday',
-            'data-inputmask':"'mask': '99/99/9999'",
-            }),
+        'data_nascimento': forms.DateInput(
+            attrs={
+                'placeholder':'Data de Nascimento',
+                'class':'date-picker form-control col-md-7 col-xs-12',
+                'id':'birthday',
+                'data-inputmask':"'mask': '99/99/9999'",
+            },
+            format=('%d-%m-%Y'),
+            ),
         'fone': forms.TextInput(attrs={
             'placeholder':'Telefone',
             'class':'form-control',
@@ -93,23 +96,26 @@ class AulaForm(forms.ModelForm):
                 'class':'form-control',
                 'readonly':"readonly",
             }),
-            'data': forms.TextInput(attrs={
-                'placeholder':'Data',
-                'class':'date-picker form-control col-md-7 col-xs-12',
-                'id':'birthday',
-                'data-inputmask':"'mask': '99/99/9999'",
-            }),
+            'data': forms.DateInput(
+                attrs={
+                    'placeholder':'Data de Nascimento',
+                    'class':'date-picker form-control col-md-7 col-xs-12',
+                    'id':'birthday',
+                    'data-inputmask':"'mask': '99/99/9999'",
+                },
+                format=('%d-%m-%Y'),
+            ),
         }
 
 class SearchForm(forms.Form):
     inicio = forms.DateTimeField(
-        widget=forms.DateTimeInput(format='%y-%m-%d',
+        widget=forms.DateInput(format='%y-%m-%d',
             attrs={
             'class':'datepicker form-control col-md-4',
             'id':'inicio',
             }))
     fim = forms.DateTimeField(
-        widget=forms.DateTimeInput(format='%y-%m-%d',
+        widget=forms.DateInput(format='%y-%m-%d',
             attrs={
             'class':'datepicker form-control col-md-4',
             'id':'fim',

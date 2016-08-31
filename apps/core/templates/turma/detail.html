@@ -36,7 +36,6 @@
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="x_panel">
     <div class="x_content">
@@ -88,82 +87,4 @@
     </div>
   </div>
 </div>
-
 {%endblock%}
-
-
-
-
-
-{% comment %}
-  <div class="row">
-  <div class="x_panel">
-    <div class="x_content responsive">
-      <h5>{{alunos|length}}-Alunos</h5>
-      <form method="post" action="">
-      <table class="table table-reflow">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              {% for aluno in alunos %}
-              <th>{{ aluno.aluno }}</th>
-              {% endfor %}
-            </tr>
-          </thead>
-          {% csrf_token %}
-          {{ formset.management_form }}
-          <tbody>
-            {%for aula,formset in forms%}
-            <tr>
-              <th>{{aula.data|date:"d/m/y"}}</th>
-              {%for form in formset%}
-              {%for field in form.visible_fields%}
-              {% for hidden in form.hidden_fields %}
-              <td>
-                {# Include the hidden fields in the form #}
-                {{ hidden }}
-                {{ field }}
-              </td>
-              {% endfor %}
-              {%endfor%}
-              {%endfor%}
-            </tr>
-            {% empty %}
-            <tr>Sorry, no athletes in this list.</tr>
-            {%endfor%}
-          </tbody>
-        </table>
-        <button type="submit" class="btn btn-success">Enviar</button>
-      </form>
-    </div>
-  </div>
-</div>
-{% endcomment %}
-{% comment %}
-  <form method="post" action="">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    {%for alunos,formset in forms%}
-      {{alunos.aluno}}
-      {%for form in formset%}
-        {%for field in form%}
-            {{field}}
-        {%endfor%}
-      {%endfor%}
-    {%endfor%}
-    <button type="submit" class="btn btn-success">Enviar</button>
-</form>
-{% endcomment %}
-
-
-<form method="post" action="">
-  {% csrf_token %}
-  {{ formset.management_form }}
-  {{forloop.counter0}}
-    <table>
-        {% for form in formset %}
-        {{ form }}
-        {% endfor %}
-    </table>
-<button type="submit" class="btn btn-success">Enviar</button>
-</form>
