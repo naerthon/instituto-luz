@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals   import pre_save, post_save
 from django.dispatch            import receiver
 import datetime
+from datetime import date
 
 
 class Aluno(models.Model):
@@ -44,11 +45,22 @@ class Curso(models.Model):
     def __str__(self):
 
         return self.curso
+CURSO=(
+    ('1','Conheça o espiritísmo'),
+    ('2','Nosso Lar'),
+    ('3','Passe'),
+    ('4','Corrente Magnética'),
+)
 
+PERIODO=(
+    (1,"{}.{}".format(date.today().year, '1')),
+    (2,"{}.{}".format(date.today().year, '2')),
+    (3,"{}.{}".format(date.today().year, '3')),
+)
 
 class Turma(models.Model):
-    turma = models.IntegerField(verbose_name='Período da turma')
-    curso = models.ForeignKey(Curso)
+    turma = models.IntegerField(verbose_name='Período da Turma', choices=PERIODO, default=1)
+    curso = models.CharField(max_length=1,verbose_name='Curso', choices=CURSO, default='1')
     aluno = models.ManyToManyField(Aluno, blank=True)
     instrutor = models.ForeignKey(User, default=1)
     limite_faltas = models.IntegerField(verbose_name='Limite de faltas', default=2)
@@ -65,7 +77,7 @@ class Turma(models.Model):
         verbose_name_plural = 'Turmas'
 
     def __str__(self):
-        return '%s - %s' % (self.curso, self.turma)
+        return '%s - %s' % (self.get_curso_display(), self.get_turma_display())
 
 @receiver(pre_save, sender=Turma)
 def verifica_ativo(sender, instance, **kwargs):

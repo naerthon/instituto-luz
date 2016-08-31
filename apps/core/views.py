@@ -15,9 +15,13 @@ def index(request):
 @login_required
 @permission_required('Admin')
 def alunos(request):
+    bread=request.path.split('/')[:-1]
     template_name = 'alunos/alunos.html'
     rows = Aluno.objects.all()
-    context = {'rows' : rows}
+    context = {
+        'rows' : rows,
+        'bread' : bread
+    }
     return render(request, template_name, context)
 
 
@@ -68,6 +72,7 @@ def turma(request):
 
 @login_required
 def detail_turma(request, pk, *args, **kwarg):
+    bread=request.path.split('/')[1]
     template_name = 'turma/detail.html'
     rows = get_object_or_404(Turma, pk=pk)
     if not rows.instrutor==request.user:
@@ -128,6 +133,7 @@ def detail_turma(request, pk, *args, **kwarg):
         query=query,
         search=search,
         alunos=alunos,
+        bread=bread,
         )
 
     return render(request, template_name, context)

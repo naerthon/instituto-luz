@@ -16,7 +16,7 @@
 				    ONCHANGE="location = this.options[this.selectedIndex].value;">
 				    <option value="">Selecione uma turma</option>
 				    {% for row in rows %}
-				    <option value="{% url 'core:detail-turma' pk=row.id %}">{{ row.curso }} - {{ row.turma }}</option>
+				    <option value="{% url 'core:detail-turma' pk=row.id %}">{{ row.get_curso_display }} - {{ row.turma }}</option>
 				    {%empty%}
 				    <option value="">Você não possui turmas no momento</option>
 				    {% endfor %}

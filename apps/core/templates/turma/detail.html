@@ -15,7 +15,7 @@
         <tbody>
           <tr>
             <th scope="row">Curso: 
-              {{ rows.curso|capfirst }} - {{ rows.turma }}
+              {{ rows.get_curso_display|capfirst }} - {{ rows.get_turma_display }}
             </td>
           </tr>
           <tr>
