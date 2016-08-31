@@ -67,7 +67,6 @@ def turma(request):
 
 
 @login_required
-@permission_required('Instrutor')
 def detail_turma(request, pk, *args, **kwarg):
     template_name = 'turma/detail.html'
     rows = get_object_or_404(Turma, pk=pk)
