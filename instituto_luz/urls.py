@@ -19,7 +19,15 @@ from apps.core import urls as core_urls
 from apps.accounts import urls as accounts_urls
 
 urlpatterns = [
-    url(r'^', include(core_urls, namespace='core')),
     url(r'^admin/', admin.site.urls),
+    url(r'^', include(core_urls, namespace='core')),
     url(r'^', include(accounts_urls, namespace='accounts')),
 ]
+
+
+
+
+
+# Change admin site title
+admin.site.site_header = ("Administração > Instituto-Luz")
+admin.site.site_title = ("Administração > Instituto-Luz")
