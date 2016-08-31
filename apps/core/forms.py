@@ -1,6 +1,6 @@
-from django import forms
-from django.forms.extras.widgets import SelectDateWidget
-from apps.core.models import Aluno, Aula,Turma, Situacao, Curso, Frequencia
+from django                         import forms
+from django.forms.extras.widgets    import SelectDateWidget
+from apps.core.models               import Aluno, Aula,Turma, Situacao, Curso, Frequencia
 
 class AlunoForm(forms.ModelForm):
     class Meta:

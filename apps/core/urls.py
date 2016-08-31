@@ -1,5 +1,5 @@
-from django.conf.urls import url
-from .views import turma,alunos,add_alunos,edit_alunos,detail_turma,add_aula, add_situacao,situacao
+from django.conf.urls 	import url
+from .views 			import turma,alunos,add_alunos,edit_alunos,detail_turma,add_aula, add_situacao,situacao
 
 
 urlpatterns = [

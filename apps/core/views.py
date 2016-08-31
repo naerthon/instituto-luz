@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Aluno, Aula, Situacao, Curso, Turma, Frequencia
-from .forms import AlunoForm, FrequenciaForm, AulaForm, SearchForm
-from django.forms import modelformset_factory
-
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models     import Group, User
+from django.shortcuts               import render, redirect, get_object_or_404, render_to_response
+from django.forms                   import modelformset_factory
+from django.http                    import HttpResponse, HttpResponseRedirect
+from .models                        import Aluno, Aula, Situacao, Curso, Turma, Frequencia
+from .forms                         import AlunoForm, FrequenciaForm, AulaForm, SearchForm
 
 @login_required
 def index(request):
@@ -13,6 +13,7 @@ def index(request):
 
 
 @login_required
+@permission_required('Admin')
 def alunos(request):
     template_name = 'alunos/alunos.html'
     rows = Aluno.objects.all()
@@ -21,6 +22,7 @@ def alunos(request):
 
 
 @login_required
+@permission_required('Admin')
 def add_alunos(request):
     template_name = 'alunos/add.html'
     if request.method == "POST":
@@ -35,6 +37,7 @@ def add_alunos(request):
 
 
 @login_required
+@permission_required('Admin')
 def edit_alunos(request, pk):
     template_name = 'alunos/editar.html'
     form = get_object_or_404(Aluno, pk=pk)
@@ -64,6 +67,7 @@ def turma(request):
 
 
 @login_required
+@permission_required('Instrutor')
 def detail_turma(request, pk, *args, **kwarg):
     template_name = 'turma/detail.html'
     rows = get_object_or_404(Turma, pk=pk)

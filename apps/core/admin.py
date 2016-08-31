@@ -1,6 +1,6 @@
-from django.db import models
 from django.contrib import admin
-from .models import Aluno, Curso, Aula, Turma, Frequencia, Situacao
+from .models 		import Aluno, Curso, Aula, Turma, Frequencia, Situacao
+from django.db 		import models
 # Register your models here.
 
 class AlunoAdmin(admin.ModelAdmin):
@@ -18,8 +18,8 @@ class FrequenciaAdmin(admin.ModelAdmin):
     list_display = ('aula', 'aluno', 'frequencia')
 
 admin.site.register(Aluno, AlunoAdmin)
-admin.site.register(Aula, AulaAdmin)
 admin.site.register(Turma, TurmaAdmin)
-#admin.site.register(Frequencia, FrequenciaAdmin)
-#admin.site.register(Situacao)
+admin.site.register(Aula, AulaAdmin)
+admin.site.register(Frequencia, FrequenciaAdmin)
+admin.site.register(Situacao)
 admin.site.register(Curso)
