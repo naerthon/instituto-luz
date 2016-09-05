@@ -5,6 +5,9 @@ from django.forms                   import modelformset_factory
 from django.http                    import HttpResponse, HttpResponseRedirect
 from .models                        import Aluno, Aula, Situacao, Curso, Turma, Frequencia
 from .forms                         import AlunoForm, FrequenciaForm, AulaForm, SearchForm
+from copy                           import deepcopy
+from django.contrib                 import messages
+
 
 @login_required
 def index(request):
@@ -77,7 +80,8 @@ def detail_turma(request, pk, *args, **kwarg):
     rows = get_object_or_404(Turma, pk=pk)
     if not rows.instrutor==request.user:
         #request.flash['notice'] = 'something wrong'
-        return HttpResponseRedirect("/")
+        message=messages.error(request, 'Turma inválida para %s!' % request.user)
+        return HttpResponseRedirect("/",{'message':message})
     alunos = Turma.aluno.through.objects.filter(turma_id=pk).order_by('aluno','id')
     aulas = Aula.objects.filter(turma_id=pk).order_by('data')
     query=Frequencia.objects.filter(aula__turma__id=pk).order_by('aluno','aula__data','aula__id')
@@ -102,7 +106,8 @@ def detail_turma(request, pk, *args, **kwarg):
         if formset.is_valid():
             for f in formset:
                 f.save()
-            return redirect('/turma/%i' % int(pk))
+            message=messages.success(request, 'Frequência editada com sucesso.')
+            return redirect('/turma/%i' % int(pk),{'message':message})
     else:
         try:
             formset=FrequenciaFormSet(queryset=query, prefix='frequencia')
@@ -123,6 +128,7 @@ def detail_turma(request, pk, *args, **kwarg):
             return HttpResponse('fim', status=400)
 
         search=SearchForm(prefix='search')
+
 
 
     context = dict(
@@ -149,6 +155,7 @@ def add_aula(request,pk):
         print(form.id)
         for aluno in alunos:
             Frequencia.objects.create_freq(form.id,aluno['aluno'])
+        message=messages.success(request, 'Aula adicionada com sucesso.')
         return redirect('/turma/%i' % int(pk))
     else:
         form = AulaForm(initial={'turma': pk})
@@ -171,3 +178,10 @@ def situacao(request,pk):
     context = {'rows' : rows}
     print(rows)
     return render(request, template_name, context)
+
+
+
+    # old_aluno=Aluno.objects.get(pk=1)
+    # new_aluno=deepcopy(old_aluno)
+    # new_aluno.id=None
+    # new_aluno.save()

@@ -1,8 +1,9 @@
-
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="/" class="site_title"><!-- <i class="fa fa-paw"></i>  --><span>Instituto Luz</span></a>
+      <a href="/" class="site_title">
+        <span>Instituto Luz</span>
+      </a>
     </div>
 
     <div class="clearfix"></div>
@@ -11,7 +12,8 @@
       <div class="menu_section">
         <ul class="nav side-menu">
         {% if user.is_superuser %}
-          <li><a><i class="fa fa-user" aria-hidden="true"></i> Alunos <span class="fa fa-chevron-down"></span></a>
+          <li>
+            <a><i class="fa fa-user" aria-hidden="true"></i> Alunos <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="/alunos/">Alunos</a>
               </li>

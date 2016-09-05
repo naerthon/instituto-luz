@@ -9,6 +9,14 @@
 </div>
 <div class="row">
 	<div class="x_panel">
+	{% if messages %}
+	<div class="alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    {% for alert in messages %}
+	    {{alert}}
+	    {% endfor %}
+	</div>
+	{% endif %}
 		<div class="col-md-6 col-xs-12">
 			<div class="x_content">
 				<label for="heard">Selecione uma Turma:</label>
@@ -16,7 +24,7 @@
 				    ONCHANGE="location = this.options[this.selectedIndex].value;">
 				    <option value="">Selecione uma turma</option>
 				    {% for row in rows %}
-				    <option value="{% url 'core:detail-turma' pk=row.id %}">{{ row.get_curso_display }} - {{ row.turma }}</option>
+				    <option value="{% url 'core:detail-turma' pk=row.id %}">{{ row.get_curso_display }} - {{ row.get_turma_display }}</option>
 				    {%empty%}
 				    <option value="">Você não possui turmas no momento</option>
 				    {% endfor %}

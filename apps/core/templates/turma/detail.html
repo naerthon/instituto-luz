@@ -10,6 +10,15 @@
 </div>
 <div class="row">
   <div class="x_panel">
+  {% if messages %}
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {% for alert in messages %}
+      {{alert}}
+      {% endfor %}
+  </div>
+  {% endif %}
+  
     <div class="x_content">
       <table class="table table-hover">
         <tbody>
@@ -60,20 +69,22 @@
       <table class="table table-striped table-bordered" jambo_table bulk_action>
         <thead>
           <tr>
+            <th>#</th>
             <th>Nome</th>
             {%for aula in aulas%}
-            <th><a href="">{{aula.data|date:"d/m/y"}}</a></th>
+            <th class="text-center"><a href="">{{aula.data|date:"d/m/y"}}</a></th>
             {%endfor%}
           </tr>
         </thead>
         <tbody>
           {%for alunos,formset in forms%}
             <tr>
-              <th scope="row">{{alunos.aluno}}</th>
+              <th width="10px" scope="row">{{alunos.aluno_id}}</th>
+              <th width="250px" scope="row">{{alunos.aluno}}</th>
               {%for form in formset%}
                 {%for field in form.visible_fields%}
                   {% for hidden in form.hidden_fields %}
-                    <td>{{ hidden }}{{ field }}</td>
+                    <td class="text-center" width="30px">{{ hidden }}{{ field }}</td>
                   {% endfor %}
                 {%endfor%}
               {%endfor%}
@@ -82,7 +93,9 @@
         </tbody>
       </table>
       </div>
+      {%if aulas%}
       <button type="submit" class="btn btn-success">Enviar</button>
+      {% endif %}
     </form>
     </div>
   </div>
