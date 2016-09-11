@@ -112,17 +112,17 @@ def detail_turma(request, pk, *args, **kwarg):
         try:
             formset=FrequenciaFormSet(queryset=query, prefix='frequencia')
             if len(alunos)>0:
-                f=formset.total_form_count()/len(alunos)
+                f=formset.total_form_count()//len(alunos)
             else:
                 return HttpResponse('Formset não gerado', status=400)
 
             forms=[]
             a=0
-            b=int(f)
+            b=f
             for x in alunos:
                 forms.append(formset[a:b])
-                a+=int(f)
-                b+=int(f)
+                a+=f
+                b+=f
             form=zip(alunos,forms)
         except:
             return HttpResponse('fim', status=400)
